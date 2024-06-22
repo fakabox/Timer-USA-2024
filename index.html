@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte à rebours</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .timer {
+            display: flex;
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .timer div {
+            margin: 0 10px;
+        }
+        .timer .value {
+            font-size: 4em;
+            font-weight: bold;
+        }
+        .timer .label {
+            font-size: 1em;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <div>
+            <div id="days" class="value">0</div>
+            <div class="label">JOURS</div>
+        </div>
+        <div>
+            <div id="hours" class="value">0</div>
+            <div class="label">HEURES</div>
+        </div>
+        <div>
+            <div id="minutes" class="value">0</div>
+            <div class="label">MINUTES</div>
+        </div>
+        <div>
+            <div id="seconds" class="value">0</div>
+            <div class="label">SECONDES</div>
+        </div>
+    </div>
+
+    <script>
+        // La date cible (13 novembre 2024 à 7h15 du matin à Paris)
+        var targetDate = moment.tz("2024-11-13 07:15", "Europe/Paris");
+
+        function updateTimer() {
+            var now = moment.tz("Europe/Paris");
+            var duration = moment.duration(targetDate.diff(now));
+
+            document.getElementById('days').textContent = Math.floor(duration.asDays());
+            document.getElementById('hours').textContent = duration.hours().toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = duration.minutes().toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = duration.seconds().toString().padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
